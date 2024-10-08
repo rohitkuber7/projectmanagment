@@ -1,0 +1,28 @@
+{
+  "name": "rohitproject",
+  "version": "1.0.0",
+  "description": "demoone",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "import-data": "node ./dev-data/data/import-data.js --import",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.0",
+    "matplotlib": "^1.0.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7",
+    "slugify": "^1.6.6",
+    "validator": "^13.12.0"
+  }
+}
