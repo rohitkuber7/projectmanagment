@@ -1,0 +1,49 @@
+/* Styles for the product list header */
+
+/* Container for the form elements */
+.form-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Styles for the search input field */
+.search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px; /* Spacing between input and button */
+  flex: 1; /* Allows input to grow and take available space */
+}
+
+/* Styles for the search button */
+.search-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for the search button */
+.search-button:hover {
+  background-color: #0056b3; /* Darker shade */
+}
+
+/* Container for the entries per page and page number */
+.select-container {
+  display: flex;
+  align-items: center;
+  margin-left: 20px; /* Spacing between form elements */
+}
+
+/* Styles for the select and input fields */
+.select-container select,
+.select-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 10px; /* Spacing between label and input */
+}

@@ -1,287 +1,64 @@
-// // src/components/TransactionList.js
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-
-// const TransactionList = () => {
-//   const [transactions, setTransactions] = useState([]); // Initialize transactions as an empty array
-//   const [searchTerm, setSearchTerm] = useState("");
-//   const [selectedMonth, setSelectedMonth] = useState("March");
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [totalPages, setTotalPages] = useState(1);
-//   const perPage = 10;
-
-//   const months = [
-//     "January",
-//     "February",
-//     "March",
-//     "April",
-//     "May",
-//     "June",
-//     "July",
-//     "August",
-//     "September",
-//     "October",
-//     "November",
-//     "December",
-//   ];
-
-//   const fetchTransactions = async () => {
-//     try {
-//       // Fetching transactions for the selected month
-//       const response = await axios.get(
-//         `http://localhost:3000/api/v1/products/transactions?search=${searchTerm}&month=${selectedMonth}&page=${currentPage}&perPage=${perPage}`
-//       );
-
-//       // Adjust the way you access the transaction data based on the new structure
-//       setTransactions(response.data.data.transactions || []); // Use the correct path to access transactions
-//       setTotalPages(Math.ceil(response.data.totalRecords / perPage)); // Calculate total pages based on totalRecords
-//     } catch (error) {
-//       console.error("Error fetching transactions:", error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchTransactions();
-//   }, [searchTerm, currentPage, selectedMonth]); // Trigger fetch when searchTerm, currentPage, or selectedMonth changes
-
-//   return (
-//     <div>
-//       <h2>Transaction Dashboard</h2>
-//       <div style={{ marginBottom: "20px" }}>
-//         <input
-//           type="text"
-//           placeholder="Search transaction"
-//           value={searchTerm}
-//           onChange={(e) => setSearchTerm(e.target.value)}
-//         />
-//         <select
-//           value={selectedMonth}
-//           onChange={(e) => setSelectedMonth(e.target.value)}
-//         >
-//           {months.map((month) => (
-//             <option key={month} value={month}>
-//               {month}
-//             </option>
-//           ))}
-//         </select>
-//       </div>
-//       <table style={{ width: "100%", border: "1px solid #ccc" }}>
-//         <thead>
-//           <tr>
-//             <th>ID</th>
-//             <th>Title</th>
-//             <th>Description</th>
-//             <th>Price</th>
-//             <th>Category</th>
-//             <th>Sold</th>
-//             <th>Image</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {transactions.length > 0 ? ( // Check if transactions is not empty
-//             transactions.map((transaction) => (
-//               <tr key={transaction.id}>
-//                 <td>{transaction.id}</td>
-//                 <td>{transaction.title}</td>
-//                 <td>{transaction.description}</td>
-//                 <td>{transaction.price}</td>
-//                 <td>{transaction.category}</td>
-//                 <td>{transaction.sold ? "Yes" : "No"}</td>
-//                 <td>
-//                   <img
-//                     src={transaction.image}
-//                     alt={transaction.title}
-//                     style={{ width: "50px", height: "50px" }}
-//                   />
-//                 </td>
-//               </tr>
-//             ))
-//           ) : (
-//             <tr>
-//               <td colSpan="7" style={{ textAlign: "center" }}>
-//                 No transactions found.
-//               </td>
-//             </tr>
-//           )}
-//         </tbody>
-//       </table>
-//       <div>
-//         <p>Page No: {currentPage}</p>
-//         <button
-//           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-//           disabled={currentPage === 1}
-//         >
-//           Previous
-//         </button>
-//         <button
-//           onClick={() =>
-//             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-//           }
-//           disabled={currentPage === totalPages}
-//         >
-//           Next
-//         </button>
-//         <span> Per Page: {perPage}</span>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default TransactionList;
-// src/components/TransactionList.js
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-
-// const TransactionList = () => {
-//   const [transactions, setTransactions] = useState([]); // Initialize transactions as an empty array
-//   const [searchTerm, setSearchTerm] = useState("");
-//   const [selectedMonth, setSelectedMonth] = useState("March");
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [totalPages, setTotalPages] = useState(1);
-//   const perPage = 10;
-
-//   const months = [
-//     "January",
-//     "February",
-//     "March",
-//     "April",
-//     "May",
-//     "June",
-//     "July",
-//     "August",
-//     "September",
-//     "October",
-//     "November",
-//     "December",
-//   ];
-
-//   const fetchTransactions = async () => {
-//     try {
-//       // Fetching transactions for the selected month
-//       const response = await axios.get(
-//         `http://localhost:3000/api/v1/products/transactions?search=${searchTerm}&month=${selectedMonth}&page=${currentPage}&perPage=${perPage}`
-//       );
-
-//       // Adjust the way you access the transaction data based on the new structure
-//       setTransactions(response.data.data.transactions || []); // Use the correct path to access transactions
-//       setTotalPages(Math.ceil(response.data.totalRecords / perPage)); // Calculate total pages based on totalRecords
-//     } catch (error) {
-//       console.error("Error fetching transactions:", error);
-//     }
-//   };
-
-//   // Use a single function to handle fetching transactions on search submission
-//   const handleSearchSubmit = (e) => {
-//     e.preventDefault(); // Prevent default form submission
-//     fetchTransactions(); // Fetch transactions with the current search term
-//   };
-
-//   // Fetch transactions when currentPage, selectedMonth changes
-//   useEffect(() => {
-//     fetchTransactions(); // Fetch transactions when these values change
-//   }, [currentPage, selectedMonth]);
-
-//   return (
-//     <div>
-//       <h2>Transaction Dashboard</h2>
-//       <div style={{ marginBottom: "20px" }}>
-//         <form onSubmit={handleSearchSubmit}>
-//           <input
-//             type="text"
-//             placeholder="Search transaction"
-//             value={searchTerm}
-//             onChange={(e) => setSearchTerm(e.target.value)}
-//           />
-//           <button type="submit">Search</button>
-//           <button
-//             type="button"
-//             onClick={() => {
-//               setSearchTerm(""); // Clear the search term
-//               window.location.reload(); // Refresh the page to load default transactions
-//             }}
-//           >
-//             Clear Search
-//           </button>
-//           <select
-//             value={selectedMonth}
-//             onChange={(e) => setSelectedMonth(e.target.value)}
-//           >
-//             {months.map((month) => (
-//               <option key={month} value={month}>
-//                 {month}
-//               </option>
-//             ))}
-//           </select>
-//         </form>
-//       </div>
-//       <table style={{ width: "100%", border: "1px solid #ccc" }}>
-//         <thead>
-//           <tr>
-//             <th>ID</th>
-//             <th>Title</th>
-//             <th>Description</th>
-//             <th>Price</th>
-//             <th>Category</th>
-//             <th>Sold</th>
-//             <th>Image</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {transactions.length > 0 ? ( // Check if transactions is not empty
-//             transactions.map((transaction) => (
-//               <tr key={transaction.id}>
-//                 <td>{transaction.id}</td>
-//                 <td>{transaction.title}</td>
-//                 <td>{transaction.description}</td>
-//                 <td>{transaction.price}</td>
-//                 <td>{transaction.category}</td>
-//                 <td>{transaction.sold ? "Yes" : "No"}</td>
-//                 <td>
-//                   <img
-//                     src={transaction.image}
-//                     alt={transaction.title}
-//                     style={{ width: "50px", height: "50px" }}
-//                   />
-//                 </td>
-//               </tr>
-//             ))
-//           ) : (
-//             <tr>
-//               <td colSpan="7" style={{ textAlign: "center" }}>
-//                 No transactions found.
-//               </td>
-//             </tr>
-//           )}
-//         </tbody>
-//       </table>
-//       <div>
-//         <p>Page No: {currentPage}</p>
-//         <button
-//           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-//           disabled={currentPage === 1}
-//         >
-//           Previous
-//         </button>
-//         <button
-//           onClick={() =>
-//             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-//           }
-//           disabled={currentPage === totalPages}
-//         >
-//           Next
-//         </button>
-//         <span> Per Page: {perPage}</span>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default TransactionList;
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled, alpha } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import "./TransactionList.css";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: "4px", // Rounded corners
+  border: "1px solid #ccc", // Consistent border
+  //borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.black, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "50%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(4),
+    width: "50%",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
+
+/* const StyledSelect = styled(Select)({
+  ...inputStyles, // Apply common styles to select
+}); */
 
 const TransactionList = () => {
-  const [transactions, setTransactions] = useState([]); // Initialize transactions as an empty array
+  const [transactions, setTransactions] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("March");
   const [currentPage, setCurrentPage] = useState(1);
@@ -305,65 +82,97 @@ const TransactionList = () => {
 
   const fetchTransactions = async () => {
     try {
-      // Fetching transactions for the selected month
       const response = await axios.get(
         `http://localhost:3000/api/v1/products/transactions?search=${searchTerm}&month=${selectedMonth}&page=${currentPage}&perPage=${perPage}`
       );
-
-      setTransactions(response.data.data.transactions || []); // Use the correct path to access transactions
-      setTotalPages(Math.ceil(response.data.totalRecords / perPage)); // Calculate total pages based on totalRecords
+      setTransactions(response.data.data.transactions || []);
+      setTotalPages(Math.ceil(response.data.totalRecords / perPage));
     } catch (error) {
       console.error("Error fetching transactions:", error);
     }
   };
 
-  // Use a single function to handle fetching transactions on search submission
   const handleSearchSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission
-    fetchTransactions(); // Fetch transactions with the current search term
+    e.preventDefault();
+    fetchTransactions();
   };
 
-  // Fetch transactions when currentPage or selectedMonth changes
   useEffect(() => {
-    fetchTransactions(); // Fetch transactions when these values change
-  }, [currentPage, selectedMonth]);
+    fetchTransactions();
+  }, [currentPage, selectedMonth, searchTerm]);
 
-  // Fetch transactions for the selected month when search term is cleared
   const handleClearSearch = () => {
-    setSearchTerm(""); // Clear the search term
-    fetchTransactions(); // Fetch transactions for the selected month
-    // Reload the page
-    window.location.reload(); // Refresh the page to load default transactions
+    setSearchTerm("");
+    fetchTransactions();
   };
 
   return (
-    <div>
-      <h2>Transaction Dashboard</h2>
-      <div style={{ marginBottom: "20px" }}>
-        <form onSubmit={handleSearchSubmit}>
-          <input
-            type="text"
-            placeholder="Search transaction"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit">Search</button>
-          <button type="button" onClick={handleClearSearch}>
-            Clear Search
-          </button>
-          <select
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
+    <div style={{ marginLeft: "20px", marginRight: " 20px" }}>
+      <h2 style={{ color: "#17202a" }}>Transaction Dashboard</h2>
+      <div>
+        <form
+          onSubmit={handleSearchSubmit}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "25px",
+            }}
           >
-            {months.map((month) => (
-              <option key={month} value={month}>
-                {month}
-              </option>
-            ))}
-          </select>
+            <Search style={{ flexGrow: 1 }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search Transaction..."
+                inputProps={{ "aria-label": "search" }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </Search>
+
+            <Box
+              sx={{
+                width: "250px", // Set the desired width
+                height: "60px", // Set a specific height
+                margin: "10px", // Add margin for spacing
+                display: "flex", // Use flexbox for alignment
+                alignItems: "center", // Center
+                marginLeft: "25px",
+              }}
+            >
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Month</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={selectedMonth}
+                  onChange={(e) => setSelectedMonth(e.target.value)}
+                  label="Month"
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 200, // Limit the height of the dropdown menu
+                        width: 250, // Match the select box width
+                      },
+                    },
+                  }}
+                >
+                  {months.map((month) => (
+                    <MenuItem key={month} value={month}>
+                      {month}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          </Box>
         </form>
       </div>
-      <table style={{ width: "100%", border: "1px solid #ccc" }}>
+
+      <table className="styled-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -376,7 +185,7 @@ const TransactionList = () => {
           </tr>
         </thead>
         <tbody>
-          {transactions.length > 0 ? ( // Check if transactions is not empty
+          {transactions.length > 0 ? (
             transactions.map((transaction) => (
               <tr key={transaction.id}>
                 <td>{transaction.id}</td>
@@ -403,23 +212,28 @@ const TransactionList = () => {
           )}
         </tbody>
       </table>
-      <div>
-        <p>Page No: {currentPage}</p>
+
+      <div className="pagination-container">
+        <p className="page-info">Page No: {currentPage}</p>
         <button
+          className="pagination-button"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
+          <ArrowBackIos className="pagination-icon" />
           Previous
         </button>
         <button
+          className="pagination-button"
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
         >
           Next
+          <ArrowForwardIos className="pagination-icon" />
         </button>
-        <span> Per Page: {perPage}</span>
+        <span className="per-page-info">Per Page: {perPage}</span>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav style={{ backgroundColor: "#007bff", padding: "10px" }}>
+    <nav style={{ backgroundColor: "#f4d03f ", padding: "10px" }}>
       <ul
         style={{
           listStyleType: "none",

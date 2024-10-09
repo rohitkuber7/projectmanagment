@@ -1,0 +1,136 @@
+/* In transactionlist.css or your global CSS file */
+.MuiInputBase-root,
+.MuiSelect-root {
+  height: 40px; /* Same height for both */
+  padding: 10px; /* Consistent padding */
+  box-sizing: border-box; /* Ensure box-sizing is applied */
+}
+
+.MuiFormControl-root {
+  min-width: 100%; /* Ensure full width */
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  margin: 20px 0px;
+  font-size: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.styled-table img {
+  border-radius: 4px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .styled-table thead {
+    display: none;
+  }
+
+  .styled-table tbody tr {
+    display: block;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .styled-table tbody tr td {
+    display: block;
+    text-align: right;
+    padding: 10px;
+    position: relative;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .styled-table tbody tr td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .styled-table tbody tr td:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* pagination.css */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between elements */
+  margin: 20px 0;
+}
+
+.page-info,
+.per-page-info {
+  font-size: 16px;
+  color: #333;
+}
+
+.pagination-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4d03f;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.pagination-icon {
+  margin: 0 5px;
+}
+
+.per-page-info {
+  font-weight: bold;
+}
