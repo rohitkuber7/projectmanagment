@@ -17,34 +17,89 @@ exports.getProduct = catchAsync(async (req, res, next) => {
     },
   });
 });
-exports.getAllTransactions = catchAsync(async (req, res, next) => {
-  const { search, page = 1, perPage = 10 } = req.query;
+// exports.getAllTransactions = catchAsync(async (req, res, next) => {
+//   const { search, page = 1, perPage = 10 } = req.query;
 
-  // Search filter: title, description match and optional price match
+//   // Search filter: title, description match and optional price match
+//   let searchFilter = {};
+//   if (search) {
+//     const searchRegex = new RegExp(search, "i"); // case-insensitive regex search
+//     searchFilter = {
+//       $or: [
+//         { title: { $regex: searchRegex } },
+//         { description: { $regex: searchRegex } },
+//       ],
+//     };
+
+//     // Check if the search term can be parsed as a number
+//     const priceValue = parseFloat(search);
+//     if (!isNaN(priceValue)) {
+//       searchFilter.$or.push({ price: priceValue });
+//     }
+//   }
+
+//   const pageNumber = parseInt(page, 10) || 1;
+//   const limit = parseInt(perPage, 10) || 10;
+//   const skip = (pageNumber - 1) * limit;
+
+//   const transactions = await Product.find(searchFilter).skip(skip).limit(limit);
+
+//   const totalRecords = await Product.countDocuments(searchFilter);
+
+//   if (!transactions || transactions.length === 0) {
+//     return next(new AppError("No transactions found", 404));
+//   }
+
+//   res.status(200).json({
+//     status: "success",
+//     results: transactions.length,
+//     totalRecords,
+//     data: {
+//       transactions,
+//     },
+//   });
+// });
+exports.getAllTransactions = catchAsync(async (req, res, next) => {
+  const { search, month, page = 1, perPage = 10 } = req.query;
+
+  // Construct the date filter based on the provided month
+  let dateFilter = {};
+  if (month) {
+    const monthIndex = new Date(Date.parse(month + " 1")).getMonth() + 1; // Get month index (1-12)
+    dateFilter = {
+      $expr: {
+        $eq: [{ $month: "$dateOfSale" }, monthIndex],
+      },
+    };
+  }
+
+  // Combine the search and date filters
   let searchFilter = {};
   if (search) {
-    const searchRegex = new RegExp(search, "i"); // case-insensitive regex search
+    const searchRegex = new RegExp(search, "i");
     searchFilter = {
       $or: [
         { title: { $regex: searchRegex } },
         { description: { $regex: searchRegex } },
       ],
     };
-
-    // Check if the search term can be parsed as a number
-    const priceValue = parseFloat(search);
-    if (!isNaN(priceValue)) {
-      searchFilter.$or.push({ price: priceValue });
-    }
   }
 
   const pageNumber = parseInt(page, 10) || 1;
   const limit = parseInt(perPage, 10) || 10;
   const skip = (pageNumber - 1) * limit;
 
-  const transactions = await Product.find(searchFilter).skip(skip).limit(limit);
+  const transactions = await Product.find({
+    ...searchFilter,
+    ...dateFilter,
+  })
+    .skip(skip)
+    .limit(limit);
 
-  const totalRecords = await Product.countDocuments(searchFilter);
+  const totalRecords = await Product.countDocuments({
+    ...searchFilter,
+    ...dateFilter,
+  });
 
   if (!transactions || transactions.length === 0) {
     return next(new AppError("No transactions found", 404));
