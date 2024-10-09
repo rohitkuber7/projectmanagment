@@ -2,6 +2,9 @@
 
 This project is a **Product Sales Management System** built using **Node.js**, **Express**, and **MongoDB**. The system provides an API for managing product data, retrieving transaction statistics, and generating various reports, including category counts and sales data across different price ranges.
 
+
+
+
 ## Features
 
 - Retrieve a list of products, transactions, and statistics.
@@ -103,3 +106,33 @@ You can test the following API endpoints for demonstration purposes. These endpo
 - **Description**: Retrieves product sales data categorized by price ranges for the specified month (January). This data can be used to generate bar charts for visual analysis of sales trends.
 
 
+## Installation & Setup
+
+- **Clone the Repository**:  
+  Clone the repository to your local machine by running the following commands:  
+  ```bash
+  git clone https://github.com/your-username/product-management-system.git
+  cd product-management-system
+-**2. Install Backend Dependencies**
+Navigate to the root directory of the cloned repository and install the necessary dependencies:
+    ```bash
+    
+        cd product-management-system
+        npm install
+
+3. Start the Backend Server:
+Run the following command to start the backend server:
+   ```bash
+    npm start
+    The backend server will run on http://localhost:3000.
+
+4. Frontend Setup:
+Navigate to the view directory for the frontend and install the necessary dependencies:
+   ```bash
+    cd view
+    npm install
+
+5. Start the Frontend Server:
+Run the following command to start the frontend server:
+  ```bash
+npm start
