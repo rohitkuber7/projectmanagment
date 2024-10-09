@@ -102,4 +102,3 @@ You can test the following API endpoints for demonstration purposes. These endpo
 - **Endpoint**: [GET](http://localhost:3000/api/v1/products/bar-chart/January)
 - **Description**: Retrieves product sales data categorized by price ranges for the specified month (January). This data can be used to generate bar charts for visual analysis of sales trends.
 
-
